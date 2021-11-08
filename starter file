@@ -1,0 +1,39 @@
+const express = require('express');
+const app = express();
+
+app.get('/', (req, res) => {
+  res.send('Hello Express app!')
+});
+const prefix = '..' //you can change the prefix when you want.
+
+app.listen(3000, () => {
+  console.log('server started');
+});
+const Discord = require('discord.js');
+const client = new Discord.Client();
+client.on('message', async message =>  { //this reads every new message.
+if(message.content === "prefix") { //if the message says "prefix"
+  let prefix = new Discord.MessageEmbed()
+  .setTitle("✅ bot name here | prefix")
+  .setDescription("to see all of my commands type: `prefixHerehelp`") 
+  .setColor("RANDOM") //this sets a random color. you can put "GREEN", "YELLOW", "BLUE", "BLURPLE", etc.
+ .setFooter(
+ `Requested by ${message.author.username}`, //${message.author.username} = the name and tag of the author.
+ message.author.displayAvatarURL() //dysplays the avatar of the author.
+ );  
+message.channel.send(prefix) //this sends the embed.
+} //closing the command
+
+if (message.content === prefix+"ping") { //if the message says the prefix + "ping"
+ let pingEmbed = new Discord.MessageEmbed()
+ .setTitle("🏓 Pong!")
+ .setDescription(`**${client.ws.ping}ms** Latency!`) //**${client.ws.ping}ms** = the bot latency.
+ .setColor("GREEN")
+ .setFooter(
+ `Requested by ${message.author.username}`,
+ message.author.displayAvatarURL()
+ );
+ message.channel.send(pingEmbed)
+} //closing the command
+}); //closing almost all the code.
+client.login(TOKEN_HERE) //the bot's token.
